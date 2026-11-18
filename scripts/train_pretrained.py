@@ -4,7 +4,6 @@ satuasummarization/extractive/pretrained_optimal_models/{<ALG>.json, index.json}
 python scripts/train_pretrained.py [--agents 30 --iters 100 --seeds 3 --jobs 12] [ALG ...]
 """
 import argparse
-import hashlib
 import json
 import pickle
 import sys
@@ -19,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from satuasummarization.extractive import FEATURE_NAMES, MetaheuristicSummarizer, train_test_split_docs  # noqa: E402
 from satuasummarization.extractive.metrics import evaluate_summary  # noqa: E402
+from satuasummarization.extractive.summarizer import content_sha256  # noqa: E402
 
 OUT = ROOT / "satuasummarization/extractive/pretrained_optimal_models"
 RES = ROOT / "results"
@@ -103,7 +103,7 @@ def main():
                                 "cv_folds": a.folds, "cv_seed": 42})
         path = OUT / f"{alg}.json"
         best.save(path)
-        index["models"][alg] = {"file": path.name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        index["models"][alg] = {"file": path.name, "sha256": content_sha256(best.to_dict()),
                                 "test_rouge1_f1": oracle["rouge1_f1"], "test_rouge2_f1": oracle["rouge2_f1"],
                                 "test_rougeL_f1": oracle["rougeL_f1"], "test_f1_macro": oracle["f1_macro"],
                                 "cv_rouge1_f1": cv_mean["rouge1_f1"], "cv_rouge2_f1": cv_mean["rouge2_f1"],
@@ -119,7 +119,7 @@ def main():
     index["selection_rule"] = (f"highest mean ROUGE-1/2/L F1 over {a.folds}-fold cross-validation inside the training "
                                "split (80%); the test split (20%) is only used for reporting")
     index["feature_names"] = FEATURE_NAMES
-    index_path.write_text(json.dumps(index, indent=2))
+    index_path.write_text(json.dumps(index, indent=2), newline="\n")
 
     for name, r in baseline_rows(test).items():
         rows.append({"algorithm": name, **{f"test_{k}": v for k, v in r.items()}})

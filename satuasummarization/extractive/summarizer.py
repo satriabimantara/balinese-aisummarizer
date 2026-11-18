@@ -24,6 +24,12 @@ def _pretrained_root():
     return resources.files("satuasummarization.extractive").joinpath(PRETRAINED_DIR)
 
 
+def content_sha256(model_dict):
+    """sha256 of the canonical JSON of a model (independent of line endings and key order of the file)."""
+    canonical = json.dumps(model_dict, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+    return hashlib.sha256(canonical.encode("ascii")).hexdigest()
+
+
 def available_models():
     """Index of the bundled pretrained models (algorithm -> metadata incl. test metrics)."""
     return json.loads(_pretrained_root().joinpath("index.json").read_text(encoding="utf-8"))
@@ -56,10 +62,10 @@ class MetaheuristicSummarizer:
         if key not in index["models"]:
             raise ValueError(f"unknown pretrained model {name!r}; available: {sorted(index['models'])}")
         entry = index["models"][key]
-        raw = _pretrained_root().joinpath(entry["file"]).read_bytes()
-        if hashlib.sha256(raw).hexdigest() != entry["sha256"]:
+        model = json.loads(_pretrained_root().joinpath(entry["file"]).read_text(encoding="utf-8"))
+        if content_sha256(model) != entry["sha256"]:
             raise ValueError(f"checksum mismatch for pretrained model {key}")
-        return cls.from_dict(json.loads(raw), extractor=extractor, ratio=ratio)
+        return cls.from_dict(model, extractor=extractor, ratio=ratio)
 
     @classmethod
     def load(cls, path, extractor=None, ratio=None):
@@ -78,7 +84,7 @@ class MetaheuristicSummarizer:
                 "meta": self.meta}
 
     def save(self, path):
-        Path(path).write_text(json.dumps(self.to_dict(), indent=2, ensure_ascii=False), encoding="utf-8")
+        Path(path).write_text(json.dumps(self.to_dict(), indent=2, ensure_ascii=False), encoding="utf-8", newline="\n")
         return path
 
     # ------------------------------------------------------------------ training
