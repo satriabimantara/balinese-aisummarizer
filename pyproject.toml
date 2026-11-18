@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "satuasummarization"
+version = "0.1.0"
+description = "Balinese extractive summarisation with metaheuristic-optimised sentence feature weights"
+authors = [{ name = "I Made Satria Bimantara" }]
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+keywords = ["balinese", "summarization", "extractive summarization", "metaheuristic", "nlp", "satua"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Natural Language :: Indonesian",
+    "Topic :: Text Processing :: Linguistic",
+    "Development Status :: 3 - Alpha",
+]
+dependencies = ["numpy>=1.24"]
+
+[project.urls]
+Homepage = "https://github.com/satriabimantara/balinese-aisummarizer"
+
+[project.optional-dependencies]
+nlp = ["balinese-nlp==2.4.2"]               # POS + SatuaNER features (needed by the pretrained models)
+test = ["pytest>=8"]
+train = ["metaheuristicpy>=3.2.0", "pandas", "openpyxl", "joblib"]
+
+[tool.setuptools.packages.find]
+include = ["satuasummarization*"]
+
+[tool.setuptools.package-data]
+"satuasummarization.extractive" = ["pretrained_optimal_models/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

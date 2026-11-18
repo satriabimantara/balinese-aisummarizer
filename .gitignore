@@ -221,3 +221,15 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- satuasummarization project ---
+# local environment and build artefacts
+satuasummarization.zip
+# research material that is not redistributed with the package
+_references/
+datasets/
+results/*.pkl
+results/*.log
+# SatuaGen-AI app requirements copied for the shared environment (not package requirements)
+requirements.txt
+requirements-dev.txt

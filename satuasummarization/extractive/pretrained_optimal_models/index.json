@@ -1,0 +1,444 @@
+{
+  "models": {
+    "PSO": {
+      "file": "PSO.json",
+      "sha256": "40ae064a74fce64c61a9bb449a92571d61554fd05a36fbd6276b233df651a363",
+      "test_rouge1_f1": 0.7388237573336013,
+      "test_rouge2_f1": 0.6789929354978431,
+      "test_rougeL_f1": 0.6824137008182943,
+      "test_f1_macro": 0.6344891468961127,
+      "train_fitness": 0.6912985403881957
+    },
+    "GA": {
+      "file": "GA.json",
+      "sha256": "330dd3190090fee8cee4948dab9bd9fbec542da303810809aae6dd85554db32a",
+      "test_rouge1_f1": 0.7354509942060032,
+      "test_rouge2_f1": 0.6723197953283524,
+      "test_rougeL_f1": 0.677396326298702,
+      "test_f1_macro": 0.6233506229798145,
+      "train_fitness": 0.6918486290857433
+    },
+    "GWO": {
+      "file": "GWO.json",
+      "sha256": "4d0b4eebf8bfe19e0ba37d99eedf5d0fcef58cadaa5ebcc8dda4367661d2f912",
+      "test_rouge1_f1": 0.7334184942440926,
+      "test_rouge2_f1": 0.6713247151647054,
+      "test_rougeL_f1": 0.6751706767748661,
+      "test_f1_macro": 0.6271510394687801,
+      "train_fitness": 0.6937402471689481
+    },
+    "MGWO": {
+      "file": "MGWO.json",
+      "sha256": "4be582e054f5d429f4f65ed82208ca97835fcd740b64fe97f91dd5b47287050b",
+      "test_rouge1_f1": 0.7385895147858608,
+      "test_rouge2_f1": 0.6768584513545356,
+      "test_rougeL_f1": 0.6808226116475143,
+      "test_f1_macro": 0.6264287487171238,
+      "train_fitness": 0.6922667183161214
+    },
+    "EEGWO": {
+      "file": "EEGWO.json",
+      "sha256": "d6d1e8ed0f8c5e127402d4992cfb71eb234cb76ad33b2da08119ee227cfb6b47",
+      "test_rouge1_f1": 0.7330761700910489,
+      "test_rouge2_f1": 0.673167983825659,
+      "test_rougeL_f1": 0.6747727993526393,
+      "test_f1_macro": 0.625016387720412,
+      "train_fitness": 0.6815033386980626
+    },
+    "IGWO": {
+      "file": "IGWO.json",
+      "sha256": "9fd23b1b3bb3c435b518bfe928a2c20c75f3908036b19bad55e19120d78071f0",
+      "test_rouge1_f1": 0.7371329798341296,
+      "test_rouge2_f1": 0.6775228661379483,
+      "test_rougeL_f1": 0.6807983079939901,
+      "test_f1_macro": 0.6270555319403378,
+      "train_fitness": 0.6909408791870147
+    },
+    "WOA": {
+      "file": "WOA.json",
+      "sha256": "fe1e3985cbf4bac117f2f4a6c0bbe8ed6923214d7f486d166b59992a9e51e923",
+      "test_rouge1_f1": 0.7256302386574951,
+      "test_rouge2_f1": 0.6646308271828677,
+      "test_rougeL_f1": 0.6676177182059272,
+      "test_f1_macro": 0.6128926348866316,
+      "train_fitness": 0.6837062548473319
+    },
+    "SSA": {
+      "file": "SSA.json",
+      "sha256": "f85fa59a8db7a7a89dda59b1856f0092826ccbb0ad6be284eab61f7344e151fb",
+      "test_rouge1_f1": 0.7243442935960352,
+      "test_rouge2_f1": 0.6607895751157734,
+      "test_rougeL_f1": 0.6656265653219557,
+      "test_f1_macro": 0.6126959855282961,
+      "train_fitness": 0.6900430459554796
+    },
+    "SMA": {
+      "file": "SMA.json",
+      "sha256": "53d7b940a1827ec7976df8982fc3bf23deab2bb1bbc6bfa258706826a4c39c1b",
+      "test_rouge1_f1": 0.734312709928179,
+      "test_rouge2_f1": 0.6726121753065325,
+      "test_rougeL_f1": 0.6746148367004764,
+      "test_f1_macro": 0.6200766859489013,
+      "train_fitness": 0.6840378710932088
+    },
+    "AOA": {
+      "file": "AOA.json",
+      "sha256": "e43dc848b7cc60ff9fd8235fdd3c789cd0213a733692d024fe63eef8916b5ff7",
+      "test_rouge1_f1": 0.7368230525712786,
+      "test_rouge2_f1": 0.6734251576917581,
+      "test_rougeL_f1": 0.6786192747236776,
+      "test_f1_macro": 0.6244829689544217,
+      "train_fitness": 0.6917295722794153
+    },
+    "GTO": {
+      "file": "GTO.json",
+      "sha256": "bbb35e10bee0be30b5d1c36fa4b2de4b610d292938c4a10d559dd2b0cb66f4af",
+      "test_rouge1_f1": 0.7282646508543105,
+      "test_rouge2_f1": 0.6653015267884734,
+      "test_rougeL_f1": 0.6672830689709198,
+      "test_f1_macro": 0.6116351455975826,
+      "train_fitness": 0.6874550161728349
+    },
+    "EGO": {
+      "file": "EGO.json",
+      "sha256": "a468bb5064cab56d400798d1db707f118439b31a7d261beb421dcbdd95fab2a8",
+      "test_rouge1_f1": 0.7342426768068517,
+      "test_rouge2_f1": 0.6725656340714182,
+      "test_rougeL_f1": 0.6741602953252943,
+      "test_f1_macro": 0.6242228826055518,
+      "train_fitness": 0.6883934476031405
+    },
+    "GCRA": {
+      "file": "GCRA.json",
+      "sha256": "43aa085b105ded94792e5e3108b8f83f46ac8765216994b87c557f930bef8bf1",
+      "test_rouge1_f1": 0.7299026137153282,
+      "test_rouge2_f1": 0.6691442993753046,
+      "test_rougeL_f1": 0.6707035256410755,
+      "test_f1_macro": 0.6185410051385445,
+      "train_fitness": 0.6846820722317731
+    },
+    "MO": {
+      "file": "MO.json",
+      "sha256": "ba2ced7f12cfa58a271b49ef960f9cead7798edc5d08815a1714efb45ad65780",
+      "test_rouge1_f1": 0.7270453063899831,
+      "test_rouge2_f1": 0.6644833047840419,
+      "test_rougeL_f1": 0.6679101249856628,
+      "test_f1_macro": 0.6109536605379376,
+      "train_fitness": 0.6837379744422978
+    },
+    "KMA": {
+      "file": "KMA.json",
+      "sha256": "7ebf381cdab745b86d9bcbbade06959929684ef9bc1f0cd4af24880815d64999",
+      "test_rouge1_f1": 0.7294857468073528,
+      "test_rouge2_f1": 0.6648963641588084,
+      "test_rougeL_f1": 0.6714732925378158,
+      "test_f1_macro": 0.6158767438373226,
+      "train_fitness": 0.6868720781046755
+    },
+    "WaOA": {
+      "file": "WaOA.json",
+      "sha256": "eb6883a824697b2b1a5176f42d8a0778f745cab57ed94f54510ea88b56dd38d8",
+      "test_rouge1_f1": 0.7306119380303845,
+      "test_rouge2_f1": 0.6692987072067029,
+      "test_rougeL_f1": 0.6725347482397738,
+      "test_f1_macro": 0.6183731857725906,
+      "train_fitness": 0.692712515825204
+    },
+    "HHO": {
+      "file": "HHO.json",
+      "sha256": "14e113a982679006338f2d2a6f48bbb70b6df641555533a71b008429fd28b49f",
+      "test_rouge1_f1": 0.7360700420238532,
+      "test_rouge2_f1": 0.6781182601060309,
+      "test_rougeL_f1": 0.6801958972545749,
+      "test_f1_macro": 0.6303528951499233,
+      "train_fitness": 0.6860991830838571
+    },
+    "HGS": {
+      "file": "HGS.json",
+      "sha256": "23e646d24c2c2cf00339da367479bbfbbdf95f17ee047ee7a6923fdbf2f85f87",
+      "test_rouge1_f1": 0.7330905042854179,
+      "test_rouge2_f1": 0.6698874724407049,
+      "test_rougeL_f1": 0.6744282593616361,
+      "test_f1_macro": 0.6196966860185158,
+      "train_fitness": 0.6918166877813249
+    },
+    "RUN": {
+      "file": "RUN.json",
+      "sha256": "a4da4f8f3af7830e4ba895b0a6332f5020c1f9ba11ae1ffee28fea381ee955da",
+      "test_rouge1_f1": 0.7308783532529504,
+      "test_rouge2_f1": 0.669507181434628,
+      "test_rougeL_f1": 0.6734542280505844,
+      "test_f1_macro": 0.6183951159706881,
+      "train_fitness": 0.6935099633356924
+    },
+    "INFO": {
+      "file": "INFO.json",
+      "sha256": "ae39440f136a931e8cbd7e2bd0de27000401ff46eb2d903ef0d060217f2bdc64",
+      "test_rouge1_f1": 0.7320473206830687,
+      "test_rouge2_f1": 0.6677549043883523,
+      "test_rougeL_f1": 0.6733678530323544,
+      "test_f1_macro": 0.618462829757111,
+      "train_fitness": 0.6922510983105288
+    },
+    "RIME": {
+      "file": "RIME.json",
+      "sha256": "a1cabdd7d89d469c3ebfe916efbb63ea78041c9cd25a649cc56b633b455e6b26",
+      "test_rouge1_f1": 0.7307342953915663,
+      "test_rouge2_f1": 0.6679178489829057,
+      "test_rougeL_f1": 0.672827394204179,
+      "test_f1_macro": 0.6199826102608194,
+      "train_fitness": 0.6928893351567507
+    },
+    "AO": {
+      "file": "AO.json",
+      "sha256": "967141160df175e2c084a63d85f5691f77934249d64f33aa582dd9ae76549eb7",
+      "test_rouge1_f1": 0.7334252208195885,
+      "test_rouge2_f1": 0.672995278560524,
+      "test_rougeL_f1": 0.6761030236406685,
+      "test_f1_macro": 0.6246379801584172,
+      "train_fitness": 0.6895808088618075
+    },
+    "PO": {
+      "file": "PO.json",
+      "sha256": "e576b0286c6bc5b124aa60b02cbb39c1b66f5e2268371ec181b4edb2cf10a119",
+      "test_rouge1_f1": 0.7415578563616021,
+      "test_rouge2_f1": 0.6808490157703678,
+      "test_rougeL_f1": 0.6818532113565382,
+      "test_f1_macro": 0.6332954462938757,
+      "train_fitness": 0.689301659768854
+    },
+    "PLO": {
+      "file": "PLO.json",
+      "sha256": "b747cf0d0e0737a6208621a9eabb600e578aa1e33b0b76393345a8dc76a6477f",
+      "test_rouge1_f1": 0.7307335571713256,
+      "test_rouge2_f1": 0.670013528820234,
+      "test_rougeL_f1": 0.6731035531475811,
+      "test_f1_macro": 0.6219263329622473,
+      "train_fitness": 0.6868674043733769
+    },
+    "MGO": {
+      "file": "MGO.json",
+      "sha256": "e7aa3050774a0386f909ce83313721302f246bd9cc947731eb9dfdc0a09b8aec",
+      "test_rouge1_f1": 0.7310581834223147,
+      "test_rouge2_f1": 0.6696658947174478,
+      "test_rougeL_f1": 0.6743593709062546,
+      "test_f1_macro": 0.6177848743570313,
+      "train_fitness": 0.6889085787756307
+    },
+    "FATA": {
+      "file": "FATA.json",
+      "sha256": "8288beaf154e35c53492f770d5d2e9795b689c333e118b74b4b4ebdbe12a6a8c",
+      "test_rouge1_f1": 0.7345132724639603,
+      "test_rouge2_f1": 0.6739484923796525,
+      "test_rougeL_f1": 0.677392126124148,
+      "test_f1_macro": 0.6258067998321442,
+      "train_fitness": 0.6900562581945693
+    },
+    "ECO": {
+      "file": "ECO.json",
+      "sha256": "57b4897570fb99d98e1c3fec9365a45c35df46710e5b0e21ce82b9857ca1b20e",
+      "test_rouge1_f1": 0.729504917644807,
+      "test_rouge2_f1": 0.6665024593105823,
+      "test_rougeL_f1": 0.672299488767012,
+      "test_f1_macro": 0.6170684832628799,
+      "train_fitness": 0.6896551388640386
+    },
+    "SAR": {
+      "file": "SAR.json",
+      "sha256": "41ae378d3956b0319f15a5fe1fe5541d17d254c618b2886cb0f9f7e0dff32805",
+      "test_rouge1_f1": 0.736969544727914,
+      "test_rouge2_f1": 0.6746088606601325,
+      "test_rougeL_f1": 0.679339178456739,
+      "test_f1_macro": 0.6282302243678543,
+      "train_fitness": 0.6909254726977586
+    },
+    "EPO": {
+      "file": "EPO.json",
+      "sha256": "1f1d95e3d2f1d84df4935e3977f370abf7b7b5faff57574c802cff8f15eb8af4",
+      "test_rouge1_f1": 0.7295544367369369,
+      "test_rouge2_f1": 0.6680778110846777,
+      "test_rougeL_f1": 0.6692298074400664,
+      "test_f1_macro": 0.6165406949507815,
+      "train_fitness": 0.6860765650670639
+    },
+    "PUMA": {
+      "file": "PUMA.json",
+      "sha256": "6a53eba6487552f841da348672b887f338ad306662bd6c34fb95b97cd66d486f",
+      "test_rouge1_f1": 0.7363055634991034,
+      "test_rouge2_f1": 0.6762606295869369,
+      "test_rougeL_f1": 0.6809886556262538,
+      "test_f1_macro": 0.6292833518274201,
+      "train_fitness": 0.6884638102703678
+    },
+    "HGWODE": {
+      "file": "HGWODE.json",
+      "sha256": "df3feb869ed17f9a52a10e1acc84243f0742935d9e7cac034d23ab495272630e",
+      "test_rouge1_f1": 0.7375371328266692,
+      "test_rouge2_f1": 0.6767557292863642,
+      "test_rougeL_f1": 0.6797270374054142,
+      "test_f1_macro": 0.625874621084946,
+      "train_fitness": 0.6940442671278885
+    },
+    "GWOWOA": {
+      "file": "GWOWOA.json",
+      "sha256": "13bf6e4940ca50005665f0ad700dd47b044d1986e26273c7d32d4e54e139fbab",
+      "test_rouge1_f1": 0.7367671293733209,
+      "test_rouge2_f1": 0.675928362206994,
+      "test_rougeL_f1": 0.6784338580188386,
+      "test_f1_macro": 0.6307193807657826,
+      "train_fitness": 0.6916491116207008
+    },
+    "PSOGWO": {
+      "file": "PSOGWO.json",
+      "sha256": "4a51f315adc7f2123a5193c15de46f1b8f9ee9e28f81a7bd0a10803904033944",
+      "test_rouge1_f1": 0.7369148896783385,
+      "test_rouge2_f1": 0.6758281339261303,
+      "test_rougeL_f1": 0.679288624023247,
+      "test_f1_macro": 0.6289568329173719,
+      "train_fitness": 0.6936968032195158
+    },
+    "IAKMA": {
+      "file": "IAKMA.json",
+      "sha256": "77679e35c6b7d517b161281f45f239c3d13b86f2b9758827da6e161a3613d8ff",
+      "test_rouge1_f1": 0.731256962547071,
+      "test_rouge2_f1": 0.669606193662172,
+      "test_rougeL_f1": 0.6729483538398391,
+      "test_f1_macro": 0.6173729211057999,
+      "train_fitness": 0.6894327458939417
+    },
+    "HO": {
+      "file": "HO.json",
+      "sha256": "7ed0e489d69fb885ddfd12ac9f1dae70c5cb2a0e453d109230e532feeb420a61",
+      "test_rouge1_f1": 0.7289930974497094,
+      "test_rouge2_f1": 0.6683058298369652,
+      "test_rougeL_f1": 0.6701640463879098,
+      "test_f1_macro": 0.6173534139514534,
+      "train_fitness": 0.6841515532623895
+    },
+    "HOA": {
+      "file": "HOA.json",
+      "sha256": "e27a760826bef69ef9209136ff176d7c849c49ed71b9e054e9e4b28af12f143a",
+      "test_rouge1_f1": 0.7262222875268,
+      "test_rouge2_f1": 0.6627456893743703,
+      "test_rougeL_f1": 0.6671410248801544,
+      "test_f1_macro": 0.610453469429527,
+      "train_fitness": 0.6826932302195653
+    },
+    "FLA": {
+      "file": "FLA.json",
+      "sha256": "3d39cf12681ed3229b62ed9af55ecbee54fa935690042473360d78dc54147e33",
+      "test_rouge1_f1": 0.7366547653189,
+      "test_rouge2_f1": 0.6748686241670828,
+      "test_rougeL_f1": 0.679206388050183,
+      "test_f1_macro": 0.6271917793140334,
+      "train_fitness": 0.6932713601202273
+    },
+    "PFA": {
+      "file": "PFA.json",
+      "sha256": "74e7edffcda71152aa8af8d0917ef7b4488f5de790d396a87d72dfa687a231de",
+      "test_rouge1_f1": 0.7340683690374671,
+      "test_rouge2_f1": 0.6716124504667852,
+      "test_rougeL_f1": 0.6754226102780752,
+      "test_f1_macro": 0.6238546725629249,
+      "train_fitness": 0.6901270869535292
+    },
+    "APO": {
+      "file": "APO.json",
+      "sha256": "0e8155cca583e8c4bc75d493fdc31661897a2c89508b71ae4c7ae2ae6dde6193",
+      "test_rouge1_f1": 0.736256916501903,
+      "test_rouge2_f1": 0.6725754141518374,
+      "test_rougeL_f1": 0.6776410642280472,
+      "test_f1_macro": 0.6245777979020586,
+      "train_fitness": 0.6915011686178159
+    },
+    "CFOA": {
+      "file": "CFOA.json",
+      "sha256": "a9aae2c58f26ec22d6c8c75d7cae40e5a9d43e16e76e6de184f728792318ebfa",
+      "test_rouge1_f1": 0.7336321124403907,
+      "test_rouge2_f1": 0.6739928476103669,
+      "test_rougeL_f1": 0.6767741751678337,
+      "test_f1_macro": 0.6248707617569338,
+      "train_fitness": 0.689023239888414
+    },
+    "CFO": {
+      "file": "CFO.json",
+      "sha256": "a02a619981a03898b7a3e0ddab68ed1c4c231b1599f746bfa2284c08b42e8b72",
+      "test_rouge1_f1": 0.7355539376678241,
+      "test_rouge2_f1": 0.6718967412401253,
+      "test_rougeL_f1": 0.674276619064646,
+      "test_f1_macro": 0.6236608758771881,
+      "train_fitness": 0.6873640829445611
+    },
+    "BEO": {
+      "file": "BEO.json",
+      "sha256": "a72e78a7041ca5260fb0424fbdd5c6085e443c6439e9bc06aa404045cc8e9917",
+      "test_rouge1_f1": 0.7333414632497978,
+      "test_rouge2_f1": 0.6707742398966187,
+      "test_rougeL_f1": 0.6744514593783899,
+      "test_f1_macro": 0.6217842107259814,
+      "train_fitness": 0.689367981397189
+    },
+    "MBKA": {
+      "file": "MBKA.json",
+      "sha256": "cb1f675ccc8052ccdffdd6c5aaf009304b0e9d8b2d18f5dcc380219a66aa8507",
+      "test_rouge1_f1": 0.7312976010841705,
+      "test_rouge2_f1": 0.6661116132710813,
+      "test_rougeL_f1": 0.6728715639198455,
+      "test_f1_macro": 0.6181827905165785,
+      "train_fitness": 0.6874053382846761
+    },
+    "AHO": {
+      "file": "AHO.json",
+      "sha256": "451a574c2c340df2c481b8bb239386356d980638e4faa5604ef0776cd07c810f",
+      "test_rouge1_f1": 0.7289357802130692,
+      "test_rouge2_f1": 0.6660218675849859,
+      "test_rougeL_f1": 0.6686865418729655,
+      "test_f1_macro": 0.6145061017684398,
+      "train_fitness": 0.6815663670817179
+    },
+    "DIO": {
+      "file": "DIO.json",
+      "sha256": "246007ed0f1d98d5bbd67820e232d8aea2999221c081cede60d2c5a9bcc1ec2d",
+      "test_rouge1_f1": 0.7353130855582414,
+      "test_rouge2_f1": 0.6754698819292694,
+      "test_rougeL_f1": 0.6788985611531698,
+      "test_f1_macro": 0.6285900953109064,
+      "train_fitness": 0.6924923120558814
+    },
+    "DRA": {
+      "file": "DRA.json",
+      "sha256": "8a022980d3619ce1c656b68f803245bd2a56c425e39f6e1b0d36084b4b542d94",
+      "test_rouge1_f1": 0.7330520587736418,
+      "test_rouge2_f1": 0.670046453408222,
+      "test_rougeL_f1": 0.6741078705520154,
+      "test_f1_macro": 0.6204348013004626,
+      "train_fitness": 0.6933015593727323
+    },
+    "mEGO": {
+      "file": "mEGO.json",
+      "sha256": "8a185c0d371eea0f8abf00a18326ef3467ae5475f1d80f70967e70eb70ad892b",
+      "test_rouge1_f1": 0.7385163229890229,
+      "test_rouge2_f1": 0.678835522660403,
+      "test_rougeL_f1": 0.6828894597051162,
+      "test_f1_macro": 0.6305304339373937,
+      "train_fitness": 0.6890750167723325
+    }
+  },
+  "best": "PO",
+  "selection_rule": "highest mean of test ROUGE-1/2/L F1 (oracle length)",
+  "feature_names": [
+    "sentence_length",
+    "sentence_position",
+    "numerical_ratio",
+    "title_jaccard",
+    "tfisf_mean",
+    "centroid_cosine",
+    "title_cosine",
+    "intra_similarity",
+    "dialogue_ratio",
+    "noun_density",
+    "verb_density",
+    "propernoun_density",
+    "character_density"
+  ]
+}

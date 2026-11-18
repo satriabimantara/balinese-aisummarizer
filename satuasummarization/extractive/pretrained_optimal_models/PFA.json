@@ -1,0 +1,95 @@
+{
+  "format_version": 1,
+  "algorithm": "PFA",
+  "ratio": 0.4,
+  "feature_names": [
+    "sentence_length",
+    "sentence_position",
+    "numerical_ratio",
+    "title_jaccard",
+    "tfisf_mean",
+    "centroid_cosine",
+    "title_cosine",
+    "intra_similarity",
+    "dialogue_ratio",
+    "noun_density",
+    "verb_density",
+    "propernoun_density",
+    "character_density"
+  ],
+  "weights": [
+    0.9797193075,
+    0.3810935856,
+    0.0608927529,
+    0.0,
+    0.8688039693,
+    0.4747952234,
+    0.5546045516,
+    0.8863043312,
+    0.0947447903,
+    0.8151015548,
+    0.3145509974,
+    0.1757453501,
+    0.0
+  ],
+  "meta": {
+    "train_fitness": 0.6901270869535292,
+    "history": [
+      0.6769820694599282,
+      0.678054057025793,
+      0.6796085691472805,
+      0.6817718726343486,
+      0.6842288654124723,
+      0.6864192445434795,
+      0.6872001993714638,
+      0.6901270869535292
+    ],
+    "n_iter": 8,
+    "fes": 3006,
+    "train_time_s": 393.65,
+    "n_agents": 30,
+    "max_iter": 100,
+    "seed": 0,
+    "test_oracle_length": {
+      "rouge1_precision": 0.6866078255589538,
+      "rouge1_recall": 0.7966981038022551,
+      "rouge1_f1": 0.7340683690374671,
+      "rouge2_precision": 0.6276742504609065,
+      "rouge2_recall": 0.7303841526814182,
+      "rouge2_f1": 0.6716124504667852,
+      "rougeL_precision": 0.6330358792659726,
+      "rougeL_recall": 0.7312829845899615,
+      "rougeL_f1": 0.6754226102780752,
+      "accuracy": 0.645068930366767,
+      "precision_macro": 0.6238546725629249,
+      "recall_macro": 0.6238546725629249,
+      "f1_macro": 0.6238546725629249
+    },
+    "test_ratio_0_4": {
+      "rouge1_precision": 0.6772740933071408,
+      "rouge1_recall": 0.7847881115924416,
+      "rouge1_f1": 0.7169956840778265,
+      "rouge2_precision": 0.6157159888919271,
+      "rouge2_recall": 0.717753131643184,
+      "rouge2_f1": 0.6534916241345786,
+      "rougeL_precision": 0.6207789520143675,
+      "rougeL_recall": 0.7174569341543272,
+      "rougeL_f1": 0.656281254492005,
+      "accuracy": 0.6234115761892494,
+      "precision_macro": 0.6157986663007371,
+      "recall_macro": 0.6213115745381185,
+      "f1_macro": 0.6112449614258445
+    },
+    "train_fitness_seeds": [
+      0.6901270869535292,
+      0.6891194572352455,
+      0.6890372832576033
+    ],
+    "split": {
+      "test_size": 0.2,
+      "seed": 42,
+      "n_train": 370,
+      "n_test": 93
+    }
+  }
+}
