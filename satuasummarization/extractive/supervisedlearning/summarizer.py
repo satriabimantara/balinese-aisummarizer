@@ -103,7 +103,7 @@ class SupervisedSummarizer:
         """Train a classifier on documents that carry ``features`` and ``labels`` (see ``models.MODEL_INFO``)."""
         if not docs:
             raise ValueError("docs must not be empty")
-        X = np.vstack([np.asarray(d.features) for d in docs])
+        X = np.vstack([np.asarray(d.features, dtype=np.float32) for d in docs])   # same dtype as predict_proba
         y = np.concatenate([np.asarray(d.labels) for d in docs])
         if X.shape[1] != len(FEATURE_NAMES):
             raise ValueError(f"features must have {len(FEATURE_NAMES)} columns")
@@ -124,9 +124,12 @@ class SupervisedSummarizer:
             raise RuntimeError("model is not trained: call fit() or from_pretrained()")
 
     def predict_proba(self, features):
-        """P(selected) of every sentence of ONE document (rows of ``features``)."""
+        """P(selected) of every sentence of ONE document (rows of ``features``).
+
+        Features are passed as float32, the dtype the models are trained on: with float64 input the scaled values
+        fall on the other side of some split thresholds and tree/boosting models give different probabilities."""
         self._check_fitted()
-        return self.model.predict_proba(np.asarray(features, dtype=float))[:, 1]
+        return self.model.predict_proba(np.asarray(features, dtype=np.float32))[:, 1]
 
     def _mask(self, proba, k=None, ratio=None, threshold=None):
         ratio = ratio or self.ratio

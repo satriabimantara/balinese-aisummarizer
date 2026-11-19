@@ -198,4 +198,4 @@ Catatan: semua model metaheuristik lebih baik daripada ketiga baseline, tetapi s
 (ROUGE-1 F1 uji 0.7243–0.7416; korelasi skor CV dengan ROUGE-1 uji hanya 0.21),
 sehingga peringkat antaralgoritme tidak boleh ditafsirkan sebagai perbedaan yang bermakna.
 
-Pengujian paket: `python -m pytest` → 21 tes lulus (10 metaheuristik dan fitur, 11 supervised learning).
+Pengujian paket: `python -m pytest` → 22 tes lulus (10 metaheuristik dan fitur, 12 supervised learning).
