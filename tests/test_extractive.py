@@ -99,7 +99,7 @@ def test_pretrained_bundle_integrity(lexical):
 
 
 def test_tampered_file_is_rejected(tmp_path, monkeypatch, lexical):
-    from satuasummarization.extractive import summarizer as sm
+    from satuasummarization.extractive.metaheuristics import summarizer as sm
     index = available_models()
     name = index["best"]
     (tmp_path / "index.json").write_text(json.dumps(index))

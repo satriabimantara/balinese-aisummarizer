@@ -5,7 +5,8 @@ Paket Python peringkasan teks berbahasa Bali untuk Modul 3 SatuaGen-AI (proyek D
 
 | Sub-paket | Isi | Status |
 |---|---|---|
-| `satuasummarization.extractive` | Peringkasan ekstraktif: bobot fitur kalimat dioptimasi metaheuristik (47 algoritme dari `metaheuristicpy`) | Tersedia, beserta 47 model pretrained |
+| `satuasummarization.extractive.metaheuristics` | Peringkasan ekstraktif: bobot fitur kalimat dioptimasi metaheuristik (47 algoritme dari `metaheuristicpy`) | Tersedia, beserta 47 model pretrained |
+| `satuasummarization.extractive.supervisedlearning` | Peringkasan ekstraktif sebagai klasifikasi biner kalimat (1 = masuk ringkasan): 12 model scikit-learn/XGBoost dan 2 model PyTorch | Tersedia, beserta 14 model pretrained |
 | `satuasummarization.abstractive` | Peringkasan abstraktif berbasis LLM | Dicadangkan (kosong) |
 
 Penulis: I Made Satria Bimantara.
@@ -25,7 +26,7 @@ Penulis: I Made Satria Bimantara.
 ## Instalasi
 
 ```bash
-python -m pip install "satuasummarization[nlp]"          # inferensi (POS + SatuaNER dari balinese-nlp 2.4.2)
+python -m pip install "satuasummarization[nlp]"          # inferensi (POS + SatuaNER dari balinese-nlp 2.4.3)
 python -m pip install "satuasummarization[train]"        # hanya untuk melatih ulang (metaheuristicpy >= 3.2.0)
 ```
 
@@ -58,13 +59,78 @@ m.save("plo.json")
 ```
 
 Model pretrained berupa JSON (bobot + metadata), bukan pickle. `from_pretrained` memeriksa sha256 setiap berkas
-terhadap `pretrained_optimal_models/index.json` sebelum dipakai.
+terhadap `metaheuristics/pretrained_optimal_models/index.json` sebelum dipakai. Impor lama
+`from satuasummarization.extractive import MetaheuristicSummarizer` tetap berlaku.
+
+## Paradigma supervised learning (klasifikasi biner kalimat)
+
+Setiap kalimat diklasifikasi dari 13 fitur yang sama: 1 = masuk ringkasan, 0 = tidak. Ringkasan berisi kalimat
+dengan P(ringkasan) ≥ 0,5 (minimal satu kalimat), atau `ceil(rasio · n)` kalimat dengan P tertinggi bila `ratio`
+diberikan.
+
+```bash
+python -m pip install "satuasummarization[nlp,supervised]"   # scikit-learn 1.2.1, xgboost, torch
+```
+
+```python
+from satuasummarization.extractive import SupervisedSummarizer, available_supervised_models
+
+model = SupervisedSummarizer.from_pretrained("best")             # macro F1 CV tertinggi (lihat index.json)
+out = model.summarize(teks, title="I Kancil Nulungin I Kakua")   # ambang 0,5
+out = model.summarize(teks, title="I Kancil Nulungin I Kakua", ratio=0.3)   # 30% kalimat dengan P tertinggi
+out["sentences"]   # [{'index', 'text', 'score' (= P), 'selected'}, ...]
+
+SupervisedSummarizer.from_pretrained("DeepMLP")                  # model tertentu
+available_supervised_models()["models"]["DeepMLP"]               # metrik CV dan uji
+
+m = SupervisedSummarizer().fit(train, model="RandomForest", seed=42)   # dokumen dengan .features dan .labels
+m.evaluate(test)                     # ROUGE-1/2/L P/R/F1, BLEU, akurasi, P/R/F1 makro kalimat
+m.evaluate(test, length="oracle")    # k = jumlah kalimat referensi (setara evaluasi model metaheuristik)
+m.save("rf")                         # rf.joblib (scikit-learn) atau rf.npz (PyTorch)
+```
+
+Model: `KNN`, `DecisionTree`, `GaussianNB`, `LogisticRegression`, `SVM`, `RandomForest`, `ExtraTrees`, `AdaBoost`,
+`GradientBoosting`, `HistGradientBoosting`, `XGBoost`, `MLP`, `DeepMLP` (128-64-32), dan `AttentionNet`
+(Transformer encoder 2 lapis atas urutan kalimat satu dokumen). *Hyperparameter* bawaan pustaka; lihat
+`supervisedlearning.MODEL_INFO`.
+
+Keamanan dan kompatibilitas: model PyTorch disimpan sebagai `.npz` (hanya larik angka). Model scikit-learn disimpan
+sebagai `.joblib`, yaitu pickle: `from_pretrained` memeriksa sha256 terhadap `index.json`, dan `load()` hanya untuk
+berkas yang Anda percayai. Berkas `.joblib` hanya dapat dimuat dengan scikit-learn 1.2.1 (versi saat disimpan);
+versi lain ditolak dengan pesan galat.
+
+Hasil (10-fold cross-validation pada 370 dokumen latih; uji pada 93 dokumen yang sama dengan model metaheuristik).
+Eksperimen lengkap: repo `#18-supervised_summarizer_balinese`.
+
+| Model | Macro F1 CV (rerata ± sd) | Macro F1 uji | ROC-AUC uji | ROUGE-1 F1 uji (P ≥ 0,5) | ROUGE-1 F1 uji (k = referensi) |
+|---|---:|---:|---:|---:|---:|
+| AdaBoost **(best)** | 0.5991 ± 0.0136 | 0.5869 | 0.6727 | 0.6674 | 0.7308 |
+| AttentionNet | 0.5984 ± 0.0210 | 0.5868 | 0.6554 | 0.6903 | 0.7320 |
+| RandomForest | 0.5979 ± 0.0125 | 0.5802 | 0.6572 | 0.6715 | 0.7234 |
+| ExtraTrees | 0.5975 ± 0.0129 | 0.5711 | 0.6484 | 0.6620 | 0.7174 |
+| GradientBoosting | 0.5970 ± 0.0171 | 0.5853 | 0.6771 | 0.6767 | 0.7317 |
+| GaussianNB | 0.5962 ± 0.0122 | 0.5783 | 0.6417 | 0.6886 | 0.7214 |
+| HistGradientBoosting | 0.5945 ± 0.0109 | 0.5818 | 0.6773 | 0.6732 | 0.7361 |
+| MLP | 0.5926 ± 0.0162 | 0.5774 | 0.6604 | 0.6584 | 0.7273 |
+| DeepMLP | 0.5911 ± 0.0235 | 0.6010 | 0.6772 | 0.6993 | 0.7330 |
+| XGBoost | 0.5874 ± 0.0106 | 0.5722 | 0.6300 | 0.6516 | 0.7042 |
+| SVM | 0.5774 ± 0.0167 | 0.5600 | 0.6539 | 0.6336 | 0.7317 |
+| LogisticRegression | 0.5768 ± 0.0140 | 0.5483 | 0.6664 | 0.6442 | 0.7286 |
+| KNN | 0.5722 ± 0.0125 | 0.5695 | 0.6052 | 0.6670 | 0.7209 |
+| DecisionTree | 0.5497 ± 0.0086 | 0.5650 | 0.5650 | 0.6581 | 0.6796 |
+| Metaheuristik APO (pembanding) | – | – | – | – | 0.7363 |
+| Lead-k (baseline) | – | – | – | – | 0.6398 |
+
+Catatan: sepuluh model teratas tidak berbeda nyata pada macro F1 (Friedman χ² = 65,61, p < 0,001; Wilcoxon-Holm
+terhadap AdaBoost p > 0,05). Dengan panjang ringkasan yang sama, model klasifikasi terbaik setara dengan model
+metaheuristik terbaik (0,7361 vs 0,7363), bukan lebih baik. Dengan ambang 0,5 ringkasan lebih pendek daripada
+acuan (27–43% vs 44% kalimat) karena model cenderung memilih kelas 0.
 
 ## Reproduksi
 
 ```bash
 python scripts/extract_features.py      # 463 dokumen, 20.029 kalimat -> results/corpus_features.pkl (±30 menit, SatuaNER)
-python scripts/train_pretrained.py      # 47 algoritme x 3 seed -> pretrained_optimal_models/ + results/pretrained_results.csv
+python scripts/train_pretrained.py      # 47 algoritme x 3 seed -> metaheuristics/pretrained_optimal_models/ + results/pretrained_results.csv
 python -m pytest                        # uji paket
 ```
 
@@ -132,4 +198,4 @@ Catatan: semua model metaheuristik lebih baik daripada ketiga baseline, tetapi s
 (ROUGE-1 F1 uji 0.7243–0.7416; korelasi skor CV dengan ROUGE-1 uji hanya 0.21),
 sehingga peringkat antaralgoritme tidak boleh ditafsirkan sebagai perbedaan yang bermakna.
 
-Pengujian paket: `python -m pytest` → 10 tes lulus.
+Pengujian paket: `python -m pytest` → 21 tes lulus (10 metaheuristik dan fitur, 11 supervised learning).

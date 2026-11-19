@@ -1,5 +1,5 @@
 """Train the pretrained optimal weights of every metaheuristic and write
-satuasummarization/extractive/pretrained_optimal_models/{<ALG>.json, index.json} + results/*.csv.
+satuasummarization/extractive/metaheuristics/pretrained_optimal_models/{<ALG>.json, index.json} + results/*.csv.
 
 python scripts/train_pretrained.py [--agents 30 --iters 100 --seeds 3 --jobs 12] [ALG ...]
 """
@@ -20,7 +20,7 @@ from satuasummarization.extractive import FEATURE_NAMES, MetaheuristicSummarizer
 from satuasummarization.extractive.metrics import evaluate_summary  # noqa: E402
 from satuasummarization.extractive.summarizer import content_sha256  # noqa: E402
 
-OUT = ROOT / "satuasummarization/extractive/pretrained_optimal_models"
+OUT = ROOT / "satuasummarization/extractive/metaheuristics/pretrained_optimal_models"
 RES = ROOT / "results"
 
 

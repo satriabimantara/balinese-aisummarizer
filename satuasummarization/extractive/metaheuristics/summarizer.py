@@ -13,15 +13,15 @@ from pathlib import Path
 
 import numpy as np
 
-from .features import FEATURE_NAMES, SentenceFeatureExtractor, split_sentences
-from .metrics import FastRouge, evaluate_summary
+from ..features import FEATURE_NAMES, SentenceFeatureExtractor, split_sentences
+from ..metrics import FastRouge, evaluate_summary
 
 PRETRAINED_DIR = "pretrained_optimal_models"
 FORMAT_VERSION = 1
 
 
 def _pretrained_root():
-    return resources.files("satuasummarization.extractive").joinpath(PRETRAINED_DIR)
+    return resources.files("satuasummarization.extractive.metaheuristics").joinpath(PRETRAINED_DIR)
 
 
 def content_sha256(model_dict):

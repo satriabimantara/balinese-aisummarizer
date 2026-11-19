@@ -36,6 +36,31 @@ def rouge_l(system, reference):
     return _prf(prev[-1], len(a), len(b))
 
 
+def bleu(system, reference, max_n=4):
+    """Sentence-level BLEU-4 with brevity penalty; n-gram precisions for n > 1 are add-one smoothed
+    (Lin & Och, 2004), so a short summary without any 4-gram match does not score exactly 0."""
+    s, r = tokenize(system), tokenize(reference)
+    if not s or not r:
+        return 0.0
+    log_p = 0.0
+    for n in range(1, max_n + 1):
+        sg, rg = _ngrams(s, n), _ngrams(r, n)
+        match, total = sum((sg & rg).values()), sum(sg.values())
+        if n > 1:
+            match, total = match + 1, total + 1
+        if match == 0:
+            return 0.0
+        log_p += np.log(match / total) / max_n
+    return float(min(1.0, np.exp(1 - len(r) / len(s))) * np.exp(log_p))
+
+
+def embedding_similarity(system_vectors, reference_vectors):
+    """Cosine similarity between the mean sentence embedding of the system and reference summaries."""
+    a, b = np.mean(system_vectors, axis=0), np.mean(reference_vectors, axis=0)
+    den = np.linalg.norm(a) * np.linalg.norm(b)
+    return float(a @ b / den) if den else 0.0
+
+
 def sentence_scores(y_true, y_pred):
     """Accuracy and macro precision/recall/F1 of the selected-sentence labels."""
     y_true, y_pred = np.asarray(y_true, int), np.asarray(y_pred, int)
@@ -56,11 +81,16 @@ def _rouge_sentences(sys_sents, ref_sents, n):
     return _prf(sum((s & r).values()), sum(s.values()), sum(r.values()))
 
 
-def evaluate_summary(sentences, y_true, y_pred):
-    """All metrics of one document: ROUGE-1/2/L (P/R/F1) between selected and reference sentences."""
+def evaluate_summary(sentences, y_true, y_pred, embeddings=None):
+    """All metrics of one document: ROUGE-1/2/L (P/R/F1) and BLEU between selected and reference sentences,
+    sentence-level accuracy/macro P/R/F1, and ``embedding_similarity`` when the (n_sentences, d) sentence
+    ``embeddings`` are given."""
     sys_s = [s for s, k in zip(sentences, y_pred) if k]
     ref_s = [s for s, k in zip(sentences, y_true) if k]
-    out = {}
+    out = {"bleu": bleu(" ".join(sys_s), " ".join(ref_s))}
+    if embeddings is not None and sys_s and ref_s:
+        E = np.asarray(embeddings)
+        out["embedding_similarity"] = embedding_similarity(E[np.asarray(y_pred, bool)], E[np.asarray(y_true, bool)])
     for key, (p, r, f) in {"rouge1": _rouge_sentences(sys_s, ref_s, 1), "rouge2": _rouge_sentences(sys_s, ref_s, 2),
                            "rougeL": rouge_l(" ".join(sys_s), " ".join(ref_s))}.items():
         out.update({f"{key}_precision": p, f"{key}_recall": r, f"{key}_f1": f})

@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "satuasummarization"
-version = "0.1.1"
-description = "Balinese extractive summarisation with metaheuristic-optimised sentence feature weights"
+version = "0.2.0"
+description = "Balinese extractive summarisation: metaheuristic-optimised sentence feature weights and supervised sentence classifiers"
 authors = [{ name = "I Made Satria Bimantara" }]
 readme = "README.md"
 license = "BSD-3-Clause"
 license-files = ["LICENSE"]
 requires-python = ">=3.10"
-keywords = ["balinese", "summarization", "extractive summarization", "metaheuristic", "nlp", "satua"]
+keywords = ["balinese", "summarization", "extractive summarization", "metaheuristic", "sentence classification", "nlp", "satua"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
@@ -25,15 +25,18 @@ dependencies = ["numpy>=1.24"]
 Homepage = "https://github.com/satriabimantara/balinese-aisummarizer"
 
 [project.optional-dependencies]
-nlp = ["balinese-nlp==2.4.2"]               # POS + SatuaNER features (needed by the pretrained models)
+nlp = ["balinese-nlp==2.4.3"]               # POS + SatuaNER features (needed by the pretrained models)
 test = ["pytest>=8"]
 train = ["metaheuristicpy>=3.2.0", "pandas", "openpyxl", "joblib"]
+# supervised sentence classifiers; the bundled .joblib models load only with the scikit-learn version they were saved with
+supervised = ["scikit-learn==1.2.1", "joblib", "xgboost>=2.1,<3", "torch>=2.3"]
 
 [tool.setuptools.packages.find]
 include = ["satuasummarization*"]
 
 [tool.setuptools.package-data]
-"satuasummarization.extractive" = ["pretrained_optimal_models/*.json"]
+"satuasummarization.extractive.metaheuristics" = ["pretrained_optimal_models/*.json"]
+"satuasummarization.extractive.supervisedlearning" = ["pretrained_models/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
